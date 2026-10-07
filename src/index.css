@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/*
+ * Abacá's brand tokens. theme.ts mirrors the colors for motion's color
+ * interpolation and inline styles: change both together.
+ */
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Thin, wide-tracked capitals, after the ABACÁ wordmark. */
+  --font-display: "Josefin Sans", "Century Gothic", ui-sans-serif, sans-serif;
+  /* Warm italic accents set against the capitals. */
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+
+  --color-ink: #141210;
+  --color-paper: #f6f1e9;
+  --color-crust: #c68a3e;
+  --color-walnut: #6f4527;
+  --color-espresso: #2a1b12;
+  --color-crema: #c99d6e;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--color-crust);
+    color: var(--color-ink);
+  }
+}
+
+/* Thin display capitals: headlines and the giant wordmarks. */
+@utility display-caps {
+  font-family: var(--font-display);
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Small spaced-out labels above headings. */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+/* The soft Fraunces italic used for accent words inside display headlines. */
+@utility serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-variation-settings: "SOFT" 100;
+}
+
+/*
+ * Film grain over a photo, so the small source images read as texture
+ * rather than blur. Goes on the photo's (positioned) frame.
+ */
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.28;
+    mix-blend-mode: overlay;
+  }
+}
+
+/*
+ * A liquid surface: a solid fill cut by a tiling wave that drifts sideways.
+ * Children are cut by the same wave, so text inside follows the surface.
+ * The mask sits 2px low so neither box edge lands on a half-covered pixel row.
+ */
+.liquid-wave {
+  --wave-w: max(20rem, 46vw);
+  --wave-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60' preserveAspectRatio='none'%3E%3Cpath d='M0 30C70 6 130 6 200 30S330 54 400 30V60H0Z'/%3E%3C/svg%3E");
+  -webkit-mask: var(--wave-shape) 0 2px / var(--wave-w) 100% repeat-x;
+  mask: var(--wave-shape) 0 2px / var(--wave-w) 100% repeat-x;
+  animation: liquid-wave var(--wave-dur, 6s) linear infinite;
+}
+
+.liquid-paused .liquid-wave {
+  animation-play-state: paused;
+}
+
+@keyframes liquid-wave {
+  to {
+    -webkit-mask-position: var(--wave-w) 2px;
+    mask-position: var(--wave-w) 2px;
+  }
+}
+
+@keyframes scroll-nudge {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 30%;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    rotate: 360deg;
+  }
+}
