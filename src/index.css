@@ -19,6 +19,9 @@
   --color-crema: #c99d6e;
 }
 
+/* Screens too short for the usual spacing, like a phone turned on its side. */
+@custom-variant short (@media (max-height: 37.5rem));
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
@@ -85,17 +88,20 @@
  * A liquid surface: a solid fill cut by a tiling wave that drifts sideways.
  * Children are cut by the same wave, so text inside follows the surface.
  * The mask sits 2px low so neither box edge lands on a half-covered pixel row.
+ * In the components layer, so utilities on the element can override it.
  */
-.liquid-wave {
-  --wave-w: max(20rem, 46vw);
-  --wave-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60' preserveAspectRatio='none'%3E%3Cpath d='M0 30C70 6 130 6 200 30S330 54 400 30V60H0Z'/%3E%3C/svg%3E");
-  -webkit-mask: var(--wave-shape) 0 2px / var(--wave-w) 100% repeat-x;
-  mask: var(--wave-shape) 0 2px / var(--wave-w) 100% repeat-x;
-  animation: liquid-wave var(--wave-dur, 6s) linear infinite;
-}
+@layer components {
+  .liquid-wave {
+    --wave-w: max(20rem, 46vw);
+    --wave-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60' preserveAspectRatio='none'%3E%3Cpath d='M0 30C70 6 130 6 200 30S330 54 400 30V60H0Z'/%3E%3C/svg%3E");
+    -webkit-mask: var(--wave-shape) 0 2px / var(--wave-w) 100% repeat-x;
+    mask: var(--wave-shape) 0 2px / var(--wave-w) 100% repeat-x;
+    animation: liquid-wave var(--wave-dur, 6s) linear infinite;
+  }
 
-.liquid-paused .liquid-wave {
-  animation-play-state: paused;
+  .liquid-paused .liquid-wave {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes liquid-wave {

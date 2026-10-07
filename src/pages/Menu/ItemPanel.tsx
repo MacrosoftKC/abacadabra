@@ -1,5 +1,5 @@
 import { clamp, motion, useTransform, type MotionValue } from "motion/react";
-import { useId, type FocusEvent } from "react";
+import { useId, type FocusEvent, type Ref } from "react";
 import ProductImage from "../../components/ProductImage";
 import { heroPalette } from "../../lib/color";
 import ItemInfo from "./ItemInfo";
@@ -13,6 +13,10 @@ interface ItemPanelProps {
   /** Sideways travel (px) at which this panel is centered. */
   center: number;
   traveled: MotionValue<number>;
+  /** Hands the cutout over to the grid's copy when the stage pans out. */
+  cutoutOpacity: MotionValue<number>;
+  /** The box the cutout sits in, measured so the grid's copy starts out right on top of it. */
+  cutoutRef?: Ref<HTMLDivElement>;
   onKeyboardFocus: (index: number) => void;
 }
 
@@ -23,13 +27,15 @@ export default function ItemPanel({
   stageHeight,
   center,
   traveled,
+  cutoutOpacity,
+  cutoutRef,
   onKeyboardFocus,
 }: ItemPanelProps) {
   const headingId = useId();
   const ink = heroPalette(item.background).ink;
 
-  // Distance from center stage in panel widths: positive while still to the right.
-  const offset = useTransform(traveled, (t) => (center - t) / width);
+  // Distance from center stage in panel widths: positive while to the right.
+  const offset = useTransform(traveled, (t) => (t - center) / width);
   // Slow layers of far-off panels would drift into view early, so they fade in with distance.
   const presence = useTransform(offset, (o) => clamp(0, 1, (1.3 - Math.abs(o)) / 0.7));
   const wordOpacity = useTransform(presence, (v) => v * 0.1);
@@ -66,7 +72,7 @@ export default function ItemPanel({
       </motion.p>
 
       <div className="absolute inset-x-0 top-[6svh] flex justify-center md:inset-y-0 md:top-0 md:left-[36%] md:items-center">
-        <div className="relative aspect-square h-[min(46svh,84vw)] md:h-[min(58svh,34vw)]">
+        <div ref={cutoutRef} className="relative aspect-square h-[min(46svh,84vw)] md:h-[min(58svh,34vw)]">
           <motion.div
             aria-hidden
             className="absolute top-1/2 left-1/2 w-[150%] -translate-1/2 will-change-transform"
@@ -76,7 +82,7 @@ export default function ItemPanel({
           </motion.div>
           <motion.div
             className="relative size-full will-change-transform"
-            style={{ x: itemX, rotate: itemRotate, scale: itemScale }}
+            style={{ x: itemX, rotate: itemRotate, scale: itemScale, opacity: cutoutOpacity }}
           >
             <ProductImage
               file={item.image}

@@ -4,7 +4,7 @@ import { CRUST, INK, PAPER } from "../../theme";
 interface PourSceneProps {
   /** 0 → 1 as the coffee rises. */
   fill: MotionValue<number>;
-  /** Sideways travel once the items start moving past, in px (≤ 0). */
+  /** Sideways travel once the items start moving past, in px (≥ 0). */
   trackX: MotionValue<number>;
   stageHeight: number;
   /** The copy seen through the coffee, in paper-colored text. */
@@ -47,7 +47,7 @@ export default function PourScene({
           </span>
         </h2>
         <p className="mt-6 max-w-xs text-sm font-medium opacity-75 sm:max-w-sm sm:text-base">
-          Five favourites from our counter, baked fresh every morning. Keep scrolling for a taste.
+          Ten favourites from our counter, baked fresh every morning. Keep scrolling for a taste.
         </p>
       </motion.div>
     </div>

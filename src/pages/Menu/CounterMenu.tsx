@@ -3,29 +3,23 @@ import pastryCaseUrl from "../../assets/photos/pastry-case.jpg";
 import { ParallaxImage } from "../../components/Parallax";
 import Reveal from "../../components/Reveal";
 import { heroPalette } from "../../lib/color";
-import { COUNTER, MENU_ITEMS } from "./menu.config";
-
-/** The showcase ends on the last item's color, so this picks up right where it leaves off. */
-const LAST = MENU_ITEMS[MENU_ITEMS.length - 1];
+import { COUNTER, MENU_END } from "./menu.config";
 
 /** The wider line-up after the showcase, beside a look at the display case. */
 export default function CounterMenu() {
   const headingId = useId();
-  const { ink } = heroPalette(LAST.background);
+  // The showcase ends on MENU_END, so this picks up right where it leaves off.
+  const { ink } = heroPalette(MENU_END);
 
   return (
-    <div
-      role="group"
-      aria-labelledby={headingId}
-      style={{ backgroundColor: LAST.background, color: ink }}
-    >
+    <div role="group" aria-labelledby={headingId} style={{ backgroundColor: MENU_END, color: ink }}>
       <div className="mx-auto grid w-[min(92vw,72rem)] gap-14 py-24 sm:py-32 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
         <Reveal>
           <figure>
             <ParallaxImage
               src={pastryCaseUrl}
               alt="Croissants, pain au chocolat and danishes lined up in an Abacá display case"
-              className="grain aspect-[4/3] rounded-[2rem] shadow-2xl"
+              className="grain aspect-4/3 rounded-4xl shadow-2xl"
             />
             <figcaption className="eyebrow mt-4 text-[10px] opacity-70">
               This morning's counter

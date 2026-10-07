@@ -1,9 +1,7 @@
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useId, useRef, type ReactNode } from "react";
 import { CRUST, INK, PAPER, WHITE } from "../../theme";
-import { MENU_ITEMS } from "../Menu/menu.config";
 import CraftCta from "./CraftCta";
-import Drips from "./Drips";
 import { BatchVisual, DoughVisual, LayersVisual } from "./StepVisuals";
 
 interface Step {
@@ -43,9 +41,6 @@ const STEPS: Step[] = [
   },
 ];
 
-/** The menu ends on its last item's color; that's what drips in from above. */
-const ABOVE = MENU_ITEMS[MENU_ITEMS.length - 1].background;
-
 export default function Craft() {
   const headingId = useId();
   const stackRef = useRef<HTMLOListElement>(null);
@@ -58,8 +53,6 @@ export default function Craft() {
       className="relative"
       style={{ backgroundColor: PAPER, color: INK }}
     >
-      <Drips color={ABOVE} />
-
       <header className="mx-auto w-[min(92vw,68rem)] pt-36 sm:pt-44">
         <p className="eyebrow" style={{ color: CRUST }}>
           The craft
@@ -111,7 +104,7 @@ function StepCard({ step, index, total, progress }: StepCardProps) {
   return (
     <li className="sticky top-0 flex h-svh items-center justify-center">
       <motion.article
-        className="group relative grid h-[min(78svh,36rem)] w-[min(92vw,68rem)] origin-top grid-rows-[auto_minmax(0,1fr)] gap-6 overflow-hidden rounded-[2rem] p-7 shadow-[0_-12px_40px_rgb(20_18_16/0.14)] sm:p-10 md:grid-cols-[1fr_1.1fr] md:grid-rows-1 md:items-center md:gap-10 md:p-14"
+        className="group relative grid h-[min(78svh,36rem)] w-[min(92vw,68rem)] origin-top grid-rows-[auto_minmax(0,1fr)] gap-6 overflow-hidden rounded-4xl p-7 shadow-[0_-12px_40px_rgb(20_18_16/0.14)] sm:p-10 md:grid-cols-[1fr_1.1fr] md:grid-rows-1 md:items-center md:gap-10 md:p-14"
         style={{
           scale,
           top: `calc(${index} * 1.75rem)`,
