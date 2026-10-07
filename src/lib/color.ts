@@ -46,8 +46,6 @@ export function inkOn(color: string): string {
 export interface HeroPalette {
   /** Text, icons and placeholder outlines. */
   ink: string;
-  /** The tiled watermark: a tone of the background, lighter on every state. */
-  watermark: string;
   /** Mobile menu panel. */
   surface: string;
 }
@@ -57,7 +55,6 @@ export function heroPalette(background: string): HeroPalette {
   const light = isLight(background);
   return {
     ink: light ? INK : PAPER,
-    watermark: mix(background, "#FFFFFF", light ? 0.3 : 0.07),
     surface: mix(background, light ? "#FFFFFF" : "#000000", 0.15),
   };
 }

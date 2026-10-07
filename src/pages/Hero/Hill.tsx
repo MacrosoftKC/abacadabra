@@ -18,7 +18,8 @@ export default function Hill({ step }: { step: number }) {
       className="relative mx-auto grid w-[min(92vw,72rem)] justify-items-center gap-4 px-2 pt-[calc(var(--base-y)_-_var(--hill-y)_+_2.5cqh)] sm:grid-cols-[1fr_auto_1fr] sm:items-start"
       style={{ color: INK }}
     >
-      <p className="hidden max-w-56 justify-self-start text-[11px] leading-relaxed font-semibold tracking-[0.12em] uppercase opacity-80 sm:block">
+      {/* A white halo keeps the side copy readable where it brushes the doodles. */}
+      <p className="hidden max-w-56 justify-self-start text-[11px] leading-relaxed font-semibold tracking-[0.12em] uppercase opacity-80 [text-shadow:0_0_0.5rem_#fff,0_0_1rem_#fff] sm:block">
         Breads, pastries and coffee, handcrafted from scratch since 2006.
       </p>
 
@@ -34,7 +35,7 @@ export default function Hill({ step }: { step: number }) {
         </div>
       </div>
 
-      <dl className="hidden items-start gap-5 justify-self-end sm:flex">
+      <dl className="hidden items-start gap-5 justify-self-end [text-shadow:0_0_0.5rem_#fff,0_0_1rem_#fff] sm:flex">
         {BADGES.map((badge) => (
           <div key={badge.label} className="flex flex-col-reverse items-center text-center">
             <dt className="max-w-20 text-[9px] leading-snug font-semibold tracking-[0.14em] uppercase opacity-70">

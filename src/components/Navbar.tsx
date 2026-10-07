@@ -14,9 +14,9 @@ const FOCUS_RING =
 const HERO_HANDOFF = 80;
 
 /**
- * One fixed bar for the whole page. Over the hero it's transparent and takes
- * the hero's colors; past it, it becomes a floating pill that tucks away while
- * you scroll down and comes back as soon as you scroll up.
+ * One fixed bar for the whole page: a floating pill, so its links stay legible
+ * over the hero's doodles. Past the hero it tucks away while you scroll down
+ * and comes back as soon as you scroll up.
  */
 export default function Navbar() {
   const activeId = useActiveSection();
@@ -75,7 +75,7 @@ export default function Navbar() {
     >
       <nav
         aria-label="Primary"
-        data-floating={!overHero || undefined}
+        data-floating
         className="mx-auto grid max-w-[120rem] grid-cols-[1fr_auto_1fr] items-center gap-4 rounded-full px-3 py-2 sm:px-5 lg:px-7 lg:py-3 data-floating:max-w-5xl data-floating:bg-paper/85 data-floating:shadow-[0_10px_30px_rgb(20_18_16/0.12)] data-floating:ring-1 data-floating:ring-ink/5 data-floating:backdrop-blur-md lg:data-floating:py-2"
         style={{
           color: ink,

@@ -1,6 +1,6 @@
 import type { HexColor } from "../../lib/color";
 import type { ImageFile } from "../../lib/productImages";
-import { PAPER } from "../../theme";
+import { WHITE } from "../../theme";
 
 /**
  * Abacá hero: everything tunable about the section lives here.
@@ -18,7 +18,7 @@ export interface HeroItem {
   name: string;
   /** One word that drifts behind the item in the menu showcase. */
   word: string;
-  /** Section background while this item is center stage. */
+  /** Its color: the menu's background while it's center stage, a soft tint behind it in the hero. */
   background: HexColor;
   /** Product cutout, file name inside src/assets/products. */
   image: ImageFile;
@@ -73,5 +73,5 @@ export const CYCLE_INTERVAL_MS = 3500;
 export const TRANSITION_MS = 1200;
 export const TRANSITION_EASING = "cubic-bezier(0.65, 0, 0.35, 1)";
 
-/** The hill at the bottom of the hero; match it to the next section's background. */
-export const HILL_COLOR = PAPER;
+/** The hero's page color: the doodle backdrop's white, and the plate under the hero's copy. */
+export const HERO_BACKGROUND = WHITE;
